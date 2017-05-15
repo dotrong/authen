@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Google</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+
+</head>
+<body>
+
+	<input type="submit" value="Sign In" id="signin">
+
+
+<script type="text/javascript">
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAlzXd1ZgP4u6XFhpgDMgIzb6kLwcCaoRQ",
+    authDomain: "testauth-8c3a3.firebaseapp.com",
+    databaseURL: "https://testauth-8c3a3.firebaseio.com",
+    projectId: "testauth-8c3a3",
+    storageBucket: "testauth-8c3a3.appspot.com",
+    messagingSenderId: "82086682998"
+  };
+  firebase.initializeApp(config);
+
+  var provider = new firebase.auth.GoogleAuthProvider();
+
+
+
+$("#signin").on("click", function() {
+
+	firebase.auth().signInWithRedirect(provider);
+
+	firebase.auth().getRedirectResult().then(function(result) {
+  if (result.credential) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    // ...
+  }
+  // The signed-in user info.
+  var user = result.user;
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+	console.log("signin");
+
+});
+
+
+</script>
+
+</body>
+</html>
